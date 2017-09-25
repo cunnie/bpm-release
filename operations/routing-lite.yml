@@ -1,0 +1,70 @@
+---
+# Enable for routing components
+# - type: replace
+#   path: /instance_groups/name=router/jobs/-
+#   value:
+#     name: bpm
+#     release: bpm
+
+- type: replace
+  path: /instance_groups/name=tcp-router/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+- type: replace
+  path: /instance_groups/name=log-api/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+- type: replace
+  path: /instance_groups/name=uaa/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+# - type: replace
+#   path: /instance_groups/name=router/jobs/name=gorouter/properties/bpm?/enabled?
+#   value: false
+
+# - type: replace
+#   path: /instance_groups/name=tcp-router/jobs/name=tcp_router/properties/bpm?/enabled?
+#   value: false
+
+- type: replace
+  path: /instance_groups/name=log-api/jobs/name=route_registrar/properties/bpm?/enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=uaa/jobs/name=route_registrar/properties/bpm?/enabled?
+  value: true
+
+- type: remove
+  path: /instance_groups/name=uaa/jobs/name=route_registrar/properties/route_registrar/routes/name=uaa/health_check
+
+- type: replace
+  path: /instance_groups/name=blobstore/jobs/name=route_registrar/properties/bpm?/enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=api/jobs/name=route_registrar/properties/bpm?/enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=api/jobs/name=routing-api/properties/bpm?/enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=tcp-router/jobs/name=tcp_router/properties/bpm?/enabled?
+  value: true
+
+- type: remove
+  path: /instance_groups/name=api/jobs/name=route_registrar/properties/route_registrar/routes/name=api/health_check
+
+- type: replace
+  path: /releases/name=routing
+  value:
+     name: routing
+     url: file:///home/pivotal/workspace/routing-release
+     version: create
